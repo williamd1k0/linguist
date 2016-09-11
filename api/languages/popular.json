@@ -1,0 +1,11 @@
+---
+title: All languages
+permalink: /api/languages/popular
+---
+{% capture languages %}
+{% for lang in site.data.popular %}
+{{ lang }}
+{% endfor %}
+{% endcapture %}
+
+{{ site.data.popular | jsonify }}

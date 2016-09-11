@@ -1,0 +1,24 @@
+---
+layout: json
+title: All languages
+permalink: /api/languages/all
+---
+{% capture languages %}
+{% for lang in site.data.languages %}
+,{
+    "name": "{{ lang[0] }}",
+    "type": "{{ lang[1].type }}",
+    "aliases": {{ lang[1].aliases | jsonify }},
+    "ace_mode": "{% if lang[1].ace_mode %}{{ lang[1].ace_mode }}{% else %}text{% endif %}",
+    "wrap": {% if lang[1].wrap %}true{% else %}false{% endif %},
+    "extensions": {{ lang[1].extensions | jsonify }},
+    "interpreters": {{ lang[1].interpreters | jsonify }},
+    "searchable": {% if lang[1].searchable == nil %}true{% else %}{{ lang[1].searchable }}{% endif %},
+    "search_term": "{{ lang[1].search_term }}",
+    "color": {{ lang[1].color | jsonify }},
+    "tm_scope": "{% if lang[1].tm_scope %}{{ lang[1].tm_scope }}{% else %}none{% endif %}",
+    "group": "{{ lang[1].group }}"
+}
+{% endfor %}
+{% endcapture %}
+{{ languages | strip_newlines | remove_first: "," }}
